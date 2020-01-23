@@ -175,7 +175,7 @@ paths:
       tags:
         - User
       summary: Get logged in user
-      description: <strong>Note</strong><br>When retrieving user the value friendshipStatus will not be returned in this call
+      description: <strong>Note</strong>  When retrieving user the value friendshipStatus will not be returned in this call
       parameters:
         - name: myUID
           in: path
