@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: 88 Days API
-  description: '<h2>Authorizations</h2> <p>Access to the API is managed using an <strong>API key</strong> which is unique for each platform that must be appended as an in-query parameter to every call made to the API.</p> <p><strong>Example:</strong></p> <blockquote> <p><code>http://51.68.191.51:2000/v1/user/create?apiKey={{api-key}}</code></p> </blockquote> <p><strong>Login</strong></p> <p>Done with firebase.<br>- Email<br>- Phone number</p> <p><strong>UID</strong></p> <p>User Identification code is created when signing in with firebase. This is then used to create an user in the 88 Days database and used to get full details</p> <p><strong>Username</strong></p> <p>Is created when making user.<br>- Cannot be changed<br>- Unique</p> <p>&nbsp;</p>'
+  description: '<h2>Authorizations</h2> <p>Access to the API is managed using an <strong>API key</strong> which is unique for each platform that must be appended as an in-query parameter to every call made to the API.</p> <p><strong>Example:</strong></p> <blockquote> <p><code>http://51.68.191.51:2000/v1/user/create?apiKey={{api-key}}</code></p> </blockquote> <p><strong>Login</strong></p> <p>Use Firebase to login user<br>- Email<br>- Phone number</p> <p><a href=https://firebase.google.com/docs>Firebase Documentation</a></p> <p><strong>UID</strong></p> <p>User Identification code is created when signing in with firebase. This is then used to create an user in the 88 Days database and used to get full details</p> <p><strong>Username</strong></p> <p>Is created when making user.<br>- Cannot be changed<br>- Unique</p> <p>&nbsp;</p>'
   contact:
     email: info@88-days.com
   version: 1.0.0
@@ -29,8 +29,9 @@ paths:
           application/json:
             schema:
               required:
-                - username
+                - uid
                 - name
+                - username
                 - pictureID
                 - country
               type: object
@@ -63,7 +64,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: Username already taken
+                example: Username already in use
         '201':
           description: User Created
           content:
@@ -156,6 +157,29 @@ paths:
         - name: UID
           in: path
           description: User identification number of requested user
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+          content: {}
+  '/user/getMe/{myUID}':
+    get:
+      tags:
+        - User
+      summary: Get logged in user
+      description: NOTE** When retreiving user the value friendshipStatus will not be returned in this call
+      parameters:
+        - name: myUID
+          in: path
+          description: Your user identification number
           required: true
           schema:
             type: string
