@@ -274,7 +274,7 @@
           "User"
         ],
         "summary": "Get logged in user",
-        "description": "NOTE** When retreiving user the value friendshipStatus will not be returned in this call",
+        "description": "<strong>Note</strong><br>When retrieving user the value friendshipStatus will not be returned in this call",
         "parameters": [
           {
             "name": "myUID",
