@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "88 Days API",
-    "description": "<h2>Authorizations</h2> <p>Access to the API is managed using an <strong>API key</strong> which is unique for each platform that must be appended as an in-query parameter to every call made to the API.</p> <p><strong>Example:</strong></p> <blockquote> <p><code>http://88-days.com:2000/v1/user/create?apiKey={{api-key}}</code></p> </blockquote> <p><strong>Development URL:</strong></p> <blockquote> <p><code>http://88-days.com:8000/dev/</code></p> </blockquote> <p><strong>Production URL:</strong></p> <blockquote> <p><code>http://88-days.com:2000/v1/</code></p> </blockquote> <p><strong>Login</strong></p> <p>Use Firebase to login user<br>- Email<br>- Phone number</p> <p><a href=https://firebase.google.com/docs>Firebase Documentation</a></p> <p><strong>UID</strong></p> <p>User Identification code is created when signing in with firebase. This is then used to create an user in the 88 Days database and used to get full details</p> <p><strong>Username</strong></p> <p>Is created when making user.<br>- Cannot be changed<br>- Unique</p> <p>&nbsp;</p>",
+    "description": "<h2>Authorizations</h2> <p>Access to the API is managed using Authorisation headers</p> <p><strong>Development URL:</strong></p> <blockquote> <p><code>http://88-days.com:8000/dev/</code></p> </blockquote> <p><strong>Production URL:</strong></p> <blockquote> <p><code>http://88-days.com:2000/v1/</code></p> </blockquote> <p><strong>Login</strong></p> <p>Use Firebase to login user<br>- Email<br>- Phone number</p> <p><a href=https://firebase.google.com/docs>Firebase Documentation</a></p> <p><strong>UID</strong></p> <p>User Identification code is created when signing in with firebase. This is then used to create an user in the 88 Days database and used to get full details</p> <p><strong>Username</strong></p> <p>Is created when making user.<br>- Cannot be changed<br>- Unique</p> <p>&nbsp;</p>",
     "contact": {
       "email": "info@88-days.com"
     },
@@ -69,17 +69,13 @@
                     "type": "string",
                     "example": "willemjan08"
                   },
-                  "pictureID": {
-                    "type": "string",
-                    "example": "HJfdkifwe9324bnfKhfs?fjds834JJDhfi"
-                  },
                   "email": {
                     "type": "string",
-                    "example": "willemjan@gmail.com"
+                    "example": "willemjan@gmail.com (optional)"
                   },
                   "phone": {
                     "type": "string",
-                    "example": 440837162
+                    "example": "4.40837162E8 (optional)"
                   },
                   "country": {
                     "type": "string",
@@ -116,7 +112,7 @@
         "x-codegen-request-body-name": "body"
       }
     },
-    "/user/update/{UID}": {
+    "/user/update": {
       "post": {
         "tags": [
           "User"
@@ -124,17 +120,6 @@
         "summary": "Update user info",
         "description": "Updates the current info for user **Provide at least one value in body**",
         "operationId": "update User",
-        "parameters": [
-          {
-            "name": "UID",
-            "in": "path",
-            "description": "User identification number",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "description": "Values to update",
           "content": {
@@ -149,10 +134,6 @@
                   "bio": {
                     "type": "string",
                     "example": "This is my new bio"
-                  },
-                  "pictureID": {
-                    "type": "string",
-                    "example": "dfdsaffFdsf8FD789fjXfdsRvds"
                   },
                   "token": {
                     "type": "string",
@@ -191,23 +172,12 @@
         "x-codegen-request-body-name": "body"
       }
     },
-    "/user/exists/{UID}": {
+    "/user/exists": {
       "get": {
         "tags": [
           "User"
         ],
         "summary": "Check if user exists for given UID",
-        "parameters": [
-          {
-            "name": "UID",
-            "in": "path",
-            "description": "User identification number",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -222,22 +192,13 @@
         }
       }
     },
-    "/user/get/{myUID}/{UID}": {
+    "/user/get/{UID}": {
       "get": {
         "tags": [
           "User"
         ],
         "summary": "Get user for given UID",
         "parameters": [
-          {
-            "name": "myUID",
-            "in": "path",
-            "description": "Your user identification number",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "UID",
             "in": "path",
@@ -266,24 +227,13 @@
         }
       }
     },
-    "/user/getMe/{myUID}": {
+    "/user/getMe": {
       "get": {
         "tags": [
           "User"
         ],
         "summary": "Get logged in user",
         "description": "<strong>Note</strong>  When retrieving user the value friendshipStatus will not be returned in this call",
-        "parameters": [
-          {
-            "name": "myUID",
-            "in": "path",
-            "description": "Your user identification number",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -297,6 +247,112 @@
           },
           "404": {
             "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/search/users/{searchterm}": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "searchterm",
+            "in": "path",
+            "description": "name or username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Search for users",
+        "description": "Returns a list of smallUsers for given searchterm.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SmallUser"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Could not find any users",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/suggested/users": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Get suggested users",
+        "description": "Returns a list of 5 newest users and 5 other users",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "latest": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SmallUser"
+                      }
+                    },
+                    "random": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SmallUser"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Could not find any users",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/mapPlaces": {
+      "get": {
+        "tags": [
+          "Map places"
+        ],
+        "summary": "Get all map places",
+        "description": "Returns an array of all map places",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MapPlace"
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Could not retrieve places",
             "content": {}
           }
         }
@@ -316,6 +372,94 @@
           }
         }
       },
+      "MapPlace": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "bundaberg backpackers"
+          },
+          "id": {
+            "type": "string",
+            "example": "fdshOHSfsdoafasLkfs"
+          },
+          "type": {
+            "enum": [
+              "working_hostel",
+              "workplace",
+              "hostel"
+            ],
+            "example": "workplace"
+          },
+          "adress": {
+            "type": "string",
+            "example": "432 Brunswickstreet, QLD Australia"
+          },
+          "pictures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "fdsafh",
+              "KLJDfhsaif"
+            ]
+          },
+          "phone": {
+            "type": "string",
+            "example": "0448920149"
+          },
+          "latitude": {
+            "type": "number",
+            "example": 123.3291844
+          },
+          "longitude": {
+            "type": "number",
+            "example": 89.32948013
+          },
+          "ratingCount": {
+            "type": "integer",
+            "example": 32
+          },
+          "ratingTotal": {
+            "type": "number",
+            "example": 34.84
+          },
+          "bookingURL": {
+            "type": "string"
+          },
+          "websiteURL": {
+            "type": "string"
+          }
+        }
+      },
+      "SmallUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "willem hendriks"
+          },
+          "username": {
+            "type": "string",
+            "example": "willempie88"
+          },
+          "uid": {
+            "type": "string",
+            "example": "hfdaorewfioyhoHUJKgyeworjso9as"
+          },
+          "friendshipState": {
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "example": 3,
+            "description": "enum:\n  * `0` - NONE\n  \n  * `1` - OUTGOING\n  \n  * `2` - INCOMING\n  \n  * `3` - MUTUAL\n"
+          }
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -330,10 +474,6 @@
           "username": {
             "type": "string",
             "example": "willemdevries08"
-          },
-          "pictureID": {
-            "type": "string",
-            "example": "hfHhfdiuHH843nHfhfHHfdjsj"
           },
           "email": {
             "type": "string",
@@ -389,7 +529,13 @@
             }
           },
           "friendshipState": {
-            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "example": 0,
             "description": "enum:\n  * `0` - NONE\n  \n  * `1` - OUTGOING\n  \n  * `2` - INCOMING\n  \n  * `3` - MUTUAL\n"
           },
           "token": {
