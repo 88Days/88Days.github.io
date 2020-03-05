@@ -299,16 +299,16 @@ components:
             - 1
             - 2
             - 3
-          example: 3
-          description: |
-            enum:
-              * `0` - NONE
+          example: 0
+          description: |2
+
+              * `0` - NONE (users have no relation)
               
-              * `1` - OUTGOING
+              * `1` - OUTGOING (you are following this user)
               
-              * `2` - INCOMING
+              * `2` - INCOMING (user is following you)
               
-              * `3` - MUTUAL
+              * `3` - MUTUAL (you follow each other)
     User:
       type: object
       properties:
@@ -368,15 +368,15 @@ components:
             - 2
             - 3
           example: 0
-          description: |
-            enum:
-              * `0` - NONE
+          description: |2
+
+              * `0` - NONE (users have no relation)
               
-              * `1` - OUTGOING
+              * `1` - OUTGOING (you are following this user)
               
-              * `2` - INCOMING
+              * `2` - INCOMING (user is following you)
               
-              * `3` - MUTUAL
+              * `3` - MUTUAL (you follow each other)
         token:
           type: string
           example: Jjfdsh7r3284bjfsy?r289<gds9f203f

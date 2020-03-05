@@ -455,8 +455,8 @@
               2,
               3
             ],
-            "example": 3,
-            "description": "enum:\n  * `0` - NONE\n  \n  * `1` - OUTGOING\n  \n  * `2` - INCOMING\n  \n  * `3` - MUTUAL\n"
+            "example": 0,
+            "description": "\n  * `0` - NONE (users have no relation)\n  \n  * `1` - OUTGOING (you are following this user)\n  \n  * `2` - INCOMING (user is following you)\n  \n  * `3` - MUTUAL (you follow each other)\n"
           }
         }
       },
@@ -536,7 +536,7 @@
               3
             ],
             "example": 0,
-            "description": "enum:\n  * `0` - NONE\n  \n  * `1` - OUTGOING\n  \n  * `2` - INCOMING\n  \n  * `3` - MUTUAL\n"
+            "description": "\n  * `0` - NONE (users have no relation)\n  \n  * `1` - OUTGOING (you are following this user)\n  \n  * `2` - INCOMING (user is following you)\n  \n  * `3` - MUTUAL (you follow each other)\n"
           },
           "token": {
             "type": "string",
