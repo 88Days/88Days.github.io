@@ -228,15 +228,24 @@ paths:
         '405':
           description: Could not retrieve places
           content: {}
+  '/image/{id}':
+    delete:
+      tags:
+        - General
+      summary: Delete an image
+      description: Deletes an image for given ID from firebase
+      parameters:
+        - name: id
+          in: path
+          description: imageID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
     MapPlace:
       type: object
       properties:
