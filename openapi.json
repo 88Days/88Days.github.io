@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "88 Days API",
-    "description": "<h2>Authorizations</h2> <p>Access to the API is managed using Authorization headers</p> <p><strong>Development URL:</strong></p> <blockquote> <p><code>http://api.88-days.com:8000/dev/</code></p> </blockquote> <p><strong>Production URL:</strong></p> <blockquote> <p><code>http://api.88-days.com:2000/v1/</code></p> </blockquote> <p><strong>Login</strong></p> <p>Use Firebase to login user<br>- Email<br>- Phone number</p> <p><a href=https://firebase.google.com/docs>Firebase Documentation</a></p> <p><strong>UID</strong></p> <p>User Identification code is created when signing in with firebase. This is then used to create an user in the 88 Days database and used to get full details</p>",
+    "description": "<h2>Authorizations</h2> <p>Access to the API is managed using Authorization headers</p> <p><strong>Development URL:</strong></p> <blockquote> <p><code>https://api.88-days.com/dev/</code></p> </blockquote> <p><strong>Production URL:</strong></p> <blockquote> <p><code>https://api.88-days.com/v1/</code></p> </blockquote> <p><strong>Login</strong></p> <p>Use Firebase to login user<br>- Email<br>- Phone number</p> <p><a href=https://firebase.google.com/docs>Firebase Documentation</a></p> <p><strong>UID</strong></p> <p>User Identification code is created when signing in with firebase. This is then used to create an user in the 88 Days database and used to get full details</p>",
     "contact": {
       "email": "info@88-days.com"
     },
