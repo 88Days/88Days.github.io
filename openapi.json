@@ -6,7 +6,7 @@
     "contact": {
       "email": "info@88-days.com"
     },
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "servers": [
     {
@@ -252,7 +252,7 @@
         }
       }
     },
-    "/search/users/{searchterm}": {
+    "/search/users": {
       "get": {
         "tags": [
           "Search"
@@ -260,7 +260,7 @@
         "parameters": [
           {
             "name": "searchterm",
-            "in": "path",
+            "in": "query",
             "description": "name or username",
             "required": true,
             "schema": {
