@@ -108,12 +108,83 @@
               }
             }
           }
+        }
+      }
+    },
+    "/user/follow/{UID}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Follow user",
+        "description": "Follow user for given ID and current friendshipstate",
+        "parameters": [
+          {
+            "name": "UID",
+            "in": "path",
+            "description": "User identification number of user to follow",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "integer",
+                    "example": 2,
+                    "description": "current friendshipstate"
+                  }
+                }
+              }
+            }
+          }
         },
-        "x-codegen-request-body-name": "body"
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmallUser"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Could not get followers"
+          }
+        }
+      }
+    },
+    "/user/lastOnline": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update user info",
+        "description": "Updates last online date for user",
+        "operationId": "update users last online date",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found for UID"
+          },
+          "405": {
+            "description": "Validation exception empty body"
+          }
+        }
       }
     },
     "/user/update": {
-      "post": {
+      "put": {
         "tags": [
           "User"
         ],
@@ -135,9 +206,9 @@
                     "type": "string",
                     "example": "This is my new bio"
                   },
-                  "token": {
+                  "daysWorked": {
                     "type": "string",
-                    "example": "GdTasGdfysa5432Kvcyderw"
+                    "example": "8"
                   },
                   "country": {
                     "type": "string",
@@ -168,8 +239,7 @@
             "description": "Validation exception empty body",
             "content": {}
           }
-        },
-        "x-codegen-request-body-name": "body"
+        }
       }
     },
     "/user/exists": {
@@ -246,8 +316,77 @@
             }
           },
           "404": {
-            "description": "User not found",
-            "content": {}
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/user/followers/{UID}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user followers",
+        "description": "Retrieve a list of followers",
+        "parameters": [
+          {
+            "name": "UID",
+            "in": "path",
+            "description": "User identification number of requested users followers",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmallUser"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Could not get followers"
+          }
+        }
+      }
+    },
+    "/user/following/{UID}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user following",
+        "description": "Retrieve a list of following users",
+        "parameters": [
+          {
+            "name": "UID",
+            "in": "path",
+            "description": "User identification number of requested users following",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmallUser"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Could not get followers"
           }
         }
       }
