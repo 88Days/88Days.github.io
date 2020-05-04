@@ -17,7 +17,7 @@ tags:
   - name: Feed
   - name: Map places
 paths:
-  /user/create:
+  /user/newUser:
     post:
       tags:
         - User
@@ -50,24 +50,24 @@ paths:
                   example: willemjan@gmail.com (optional)
                 phone:
                   type: string
-                  example: 4.40837162E8 (optional)
+                  example: +310837162E8 (optional)
                 country:
                   type: string
                   example: NL
       responses:
-        '200':
-          description: Could not create User
-          content:
-            application/json:
-              schema:
-                type: string
-                example: Username already in use
         '201':
           description: User Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Me'
+        '409':
+          description: Error creating new user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Username already in use
   '/user/follow/{UID}':
     post:
       tags:
@@ -200,7 +200,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Me'
         '404':
           description: User not found
   '/user/followers/{UID}':
@@ -405,6 +405,49 @@ components:
               * `2` - INCOMING (user is following you)
               
               * `3` - MUTUAL (you follow each other)
+    Me:
+      type: object
+      properties:
+        uid:
+          type: string
+          example: Jfdksofhs432ujf08Hf83n9fdsMh
+        name:
+          type: string
+          example: Willem de vries
+        username:
+          type: string
+          example: willemdevries08
+        email:
+          type: string
+          example: willemdevries@gmail.com
+        phone:
+          type: string
+          example: 0440763928E8
+        bio:
+          type: string
+          example: This is an example biography
+          default: ''
+        lastOnline:
+          type: string
+          format: date-time
+          example: '2019-12-27T12:14:42Z'
+        country:
+          type: string
+          example: NL
+        signupDate:
+          type: string
+          description: Generated when user is created
+          format: date-time
+          example: '2019-12-27T12:14:42Z'
+        followers_count:
+          type: integer
+          example: 24
+        following_count:
+          type: integer
+          example: 28
+        daysWorked:
+          type: integer
+          example: 4
     User:
       type: object
       properties:
@@ -439,24 +482,18 @@ components:
           description: Generated when user is created
           format: date-time
           example: '2019-12-27T12:14:42Z'
-        num_days:
+        followers_count:
           type: integer
-          description: Number of days left for user to work
-          example: 64
-        followers:
-          type: array
-          example:
-            - fjdsajfidshfj43hHJFYUDS
-            - FDJS7432jdfgFfdsj9JhfdhskJ
-          items:
-            type: string
-        following:
-          type: array
-          example:
-            - fjdsajfidshfj43hHJFYUDS
-            - FDJS7432jdfgFfdsj9JhfdhskJ
-          items:
-            type: string
+          example: 24
+        following_count:
+          type: integer
+          example: 28
+        daysWorked:
+          type: integer
+          example: 4
+        isBlocked:
+          type: boolean
+          example: true
         friendshipState:
           enum:
             - 0
@@ -473,9 +510,6 @@ components:
               * `2` - INCOMING (user is following you)
               
               * `3` - MUTUAL (you follow each other)
-        token:
-          type: string
-          example: Jjfdsh7r3284bjfsy?r289<gds9f203f
     Users:
       type: array
       items:
