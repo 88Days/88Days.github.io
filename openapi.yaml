@@ -112,8 +112,6 @@ paths:
           description: OK
         '404':
           description: User not found for UID
-        '405':
-          description: Validation exception empty body
   /user/update:
     put:
       tags:
@@ -268,7 +266,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/SmallUser'
+                  $ref: '#/components/schemas/SearchUser'
         '404':
           description: Could not find any users
           content: {}
@@ -289,11 +287,36 @@ paths:
                   latest:
                     type: array
                     items:
-                      $ref: '#/components/schemas/SmallUser'
+                      $ref: '#/components/schemas/SearchUser'
                   random:
                     type: array
                     items:
-                      $ref: '#/components/schemas/SmallUser'
+                      $ref: '#/components/schemas/SearchUser'
+        '404':
+          description: Could not find any users
+          content: {}
+  '/recommended/users/:offset':
+    get:
+      tags:
+        - Search
+      summary: Get recommended users
+      description: Returns a list of 8 (limit) users which are recommended for logged in user
+      parameters:
+        - name: offset
+          in: query
+          description: Paging offset
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MutualUser'
         '404':
           description: Could not find any users
           content: {}
@@ -377,7 +400,7 @@ components:
           type: string
         websiteURL:
           type: string
-    SmallUser:
+    SearchUser:
       type: object
       properties:
         name:
@@ -405,6 +428,43 @@ components:
               * `2` - INCOMING (user is following you)
               
               * `3` - MUTUAL (you follow each other)
+        blocked:
+          type: boolean
+          example: false
+    MutualUser:
+      type: object
+      properties:
+        name:
+          type: string
+          example: willem hendriks
+        username:
+          type: string
+          example: willempie88
+        uid:
+          type: string
+          example: hfdaorewfioyhoHUJKgyeworjso9as
+        friendshipState:
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+          example: 0
+          description: |2
+
+              * `0` - NONE (users have no relation)
+              
+              * `1` - OUTGOING (you are following this user)
+              
+              * `2` - INCOMING (user is following you)
+              
+              * `3` - MUTUAL (you follow each other)
+        blocked:
+          type: boolean
+          example: false
+        mutualFollowers:
+          type: integer
+          example: 4
     Me:
       type: object
       properties:
@@ -510,7 +570,7 @@ components:
               * `2` - INCOMING (user is following you)
               
               * `3` - MUTUAL (you follow each other)
-    Users:
+    SearchUsers:
       type: array
       items:
-        $ref: '#/components/schemas/User'
+        $ref: '#/components/schemas/SearchUser'
