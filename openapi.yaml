@@ -400,6 +400,9 @@ components:
           type: string
         websiteURL:
           type: string
+        about:
+          type: string
+          example: 'Featuring an on-site bar, this central Brisbane hostel is situated just a short stroll from Queen Street Mall and St John''s Cathedral. It is close to Brisbane City Hall, dining options and shops. Nomads Brisbane Hostel features a 24-hour reception, plus free Wi-Fi and luggage storage. For added convenience, it offers a shared kitchen, a tour desk and a BBQ/picnic area. Nomads Brisbane Hostel has 124 comfortable rooms that are ideal for travellers on a budget. Nomads Brisbane Hostel provides a conveniently located on-site café. Nomads Brisbane Hostel is conveniently situated for sightseeing in Brisbane with Treasury Casino within a 10-minute walk. Guests can also visit the City Botanic Gardens and Roma Street Parkland.'
     SearchUser:
       type: object
       properties:
