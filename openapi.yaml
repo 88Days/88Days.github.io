@@ -97,7 +97,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SmallUser'
+                $ref: '#/components/schemas/SearchUser'
         '404':
           description: Could not get followers
   /user/lastOnline:
@@ -220,7 +220,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SmallUser'
+                $ref: '#/components/schemas/SearchUser'
         '404':
           description: Could not get followers
   '/user/following/{UID}':
@@ -242,7 +242,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SmallUser'
+                $ref: '#/components/schemas/SearchUser'
         '404':
           description: Could not get followers
   /search/users:
@@ -257,7 +257,7 @@ paths:
           schema:
             type: string
       summary: Search for users
-      description: Returns a list of smallUsers for given searchterm.
+      description: Returns a list of users for given searchterm.
       responses:
         '200':
           description: OK

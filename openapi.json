@@ -151,7 +151,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SmallUser"
+                  "$ref": "#/components/schemas/SearchUser"
                 }
               }
             }
@@ -342,7 +342,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SmallUser"
+                  "$ref": "#/components/schemas/SearchUser"
                 }
               }
             }
@@ -377,7 +377,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SmallUser"
+                  "$ref": "#/components/schemas/SearchUser"
                 }
               }
             }
@@ -405,7 +405,7 @@
           }
         ],
         "summary": "Search for users",
-        "description": "Returns a list of smallUsers for given searchterm.",
+        "description": "Returns a list of users for given searchterm.",
         "responses": {
           "200": {
             "description": "OK",
