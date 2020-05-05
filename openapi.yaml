@@ -104,7 +104,7 @@ paths:
     put:
       tags:
         - User
-      summary: Update user info
+      summary: Update last online
       description: Updates last online date for user
       operationId: update users last online date
       responses:
