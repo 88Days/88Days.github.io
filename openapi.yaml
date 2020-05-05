@@ -379,8 +379,8 @@ components:
           items:
             type: string
           example:
-            - fdsafh
-            - KLJDfhsaif
+            - bundaberg_backpackers0
+            - bundaberg_backpackers1
         phone:
           type: string
           example: 0448920149
