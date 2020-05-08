@@ -786,12 +786,6 @@
             "type": "string",
             "example": "NL"
           },
-          "signupDate": {
-            "type": "string",
-            "description": "Generated when user is created",
-            "format": "date-time",
-            "example": "2019-12-27T12:14:42Z"
-          },
           "followers_count": {
             "type": "integer",
             "example": 24
